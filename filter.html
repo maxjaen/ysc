@@ -1,596 +1,603 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <style>
+      @media screen and (max-width: 810px) {
+        #filter-container ul {
+          flex-direction: column;
+          width: 100%;
+        }
 
-<head>
-	<style>
-		@media screen and (max-width: 810px) {
-			#filter-container ul {
-				flex-direction: column;
-				width: 100%;
-			}
+        #filter-container ul li {
+          margin-bottom: 5px;
+        }
+      }
 
-			#filter-container ul li {
-				margin-bottom: 5px;
-			}
-		}
+      @media screen and (min-width: 810px) and (max-width: 1200px) {
+        #filter-container {
+          height: 95px;
+        }
 
-		@media screen and (min-width: 810px) and (max-width: 1200px) {
-			#filter-container {
-				height: 95px;
-			}
+        #filter-container li {
+          width: 180px;
+        }
+      }
 
-			#filter-container li {
-				width: 180px;
-			}
-		}
+      @media screen and (min-width: 1200px) {
+        #filter-container {
+          height: 95px;
+        }
 
-		@media screen and (min-width: 1200px) {
-			#filter-container {
-				height: 95px;
-			}
+        #filter-container li {
+          width: 240px;
+        }
+      }
 
-			#filter-container li {
-				width: 240px;
-			}
-		}
+      :root {
+        --first-color: #2a334f;
+        --second-color: #bfc6ea;
+        --third-color: #d4a518;
+        --white: #ffffff;
+      }
 
-		:root {
-			--first-color: #2A334F;
-			--second-color: #BFC6EA;
-			--third-color: #D4A518;
-			--white: #FFFFFF;
-		}
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+      }
 
-		body {
-			margin: 0;
-			padding: 0;
-			font-family: Arial, sans-serif;
-		}
+      #filter-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: auto;
+        margin-bottom: 50px;
+      }
 
-		#filter-container {
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			height: auto;
-			margin-bottom: 50px;
-		}
+      #filter-container ul {
+        /* Remove bullet points */
+        list-style-type: none;
+        display: flex;
+        padding-right: 40px;
+      }
 
-		#filter-container ul {
-			/* Remove bullet points */
-			list-style-type: none;
-			display: flex;
-			padding-right: 40px;
-		}
+      #filter-container li {
+        margin: 0 10px;
+        position: relative;
+      }
 
-		#filter-container li {
-			margin: 0 10px;
-			position: relative;
-		}
+      #filter-container a {
+        display: block;
+        background-color: var(--first-color);
+        color: var(--white);
+        padding: 10px 16px;
+        font-size: 18px;
+        text-align: center;
+        /* Remove underline */
+        text-decoration: none;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        border-radius: 20px;
+      }
 
-		#filter-container a {
-			display: block;
-			background-color: var(--first-color);
-			color: var(--white);
-			padding: 10px 16px;
-			font-size: 18px;
-			text-align: center;
-			/* Remove underline */
-			text-decoration: none;
-			text-overflow: ellipsis;
-			white-space: nowrap;
-			overflow: hidden;
-			border-radius: 20px;
-		}
+      #filter-container li ul {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        padding: 0;
+        border-top: 3px solid var(--white);
+        /* Always be on top */
+        z-index: 1;
+      }
 
-		#filter-container li ul {
-			display: none;
-			position: absolute;
-			top: 100%;
-			left: 0;
-			padding: 0;
-			border-top: 3px solid var(--white);
-			/* Always be on top */
-			z-index: 1;
-		}
+      #filter-container li:hover ul {
+        display: block;
+      }
 
-		#filter-container li:hover ul {
-			display: block;
-		}
+      #filter-container li ul li {
+        display: block;
+        margin: 0;
+      }
 
-		#filter-container li ul li {
-			display: block;
-			margin: 0;
-		}
+      #filter-container li ul li a {
+        font-size: 16px;
+        text-align: left;
+        border-radius: 0px;
+      }
 
-		#filter-container li ul li a {
-			font-size: 16px;
-			text-align: left;
-			border-radius: 0px;
-		}
+      #filter-container li ul li a:hover {
+        font-weight: 600;
+      }
 
-		#filter-container li ul li a:hover {
-			font-weight: 600;
-		}
+      #element-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
 
-		#element-container {
-			display: flex;
-			flex-wrap: wrap;
-			justify-content: center;
-		}
+      #element-container .element {
+        opacity: 1;
+        background-color: var(--first-color);
+        color: var(--white);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 0 50px 40px;
+        width: 300px;
+        height: 500px;
+      }
 
-		#element-container .element {
-			opacity: 1;
-			background-color: var(--first-color);
-			color: var(--white);
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			margin: 0 50px 40px;
-			width: 300px;
-			height: 500px;
-		}
+      #element-container .element .image-container {
+        width: 100%;
+        height: 300px;
+        display: flex;
+        justify-content: center;
+      }
 
-		#element-container .element .image-container {
-			width: 100%;
-			height: 300px;
-			display: flex;
-			justify-content: center;
-		}
+      #element-container .element .image-container img {
+        padding: 20px;
+        width: 260px;
+        height: 260px;
+      }
 
-		#element-container .element .image-container img {
-			padding: 20px;
-			width: 260px;
-			height: 260px;
-		}
+      #element-container .element .description-container {
+        width: 100%;
+        height: 200px;
+        display: flex;
+        flex-direction: column;
+        font-size: 18px;
+        line-height: 1.2;
+      }
 
-		#element-container .element .description-container {
-			width: 100%;
-			height: 200px;
-			display: flex;
-			flex-direction: column;
-			font-size: 18px;
-			line-height: 1.2;
-		}
+      #element-container .element .description-container div {
+        margin: 5px 20px 5px 20px;
+      }
 
-		#element-container .element .description-container div {
-			margin: 5px 20px 5px 20px;
-		}
+      #element-container .element .description-container .description {
+        margin: 10px 20px 10px 20px;
+        /* text-align: center; */
+        font-size: 22px;
+        font-weight: 800;
+        color: var(--second-color);
+        flex-grow: 1;
+      }
 
-		#element-container .element .description-container .description {
-			margin: 10px 20px 10px 20px;
-			/* text-align: center; */
-			font-size: 22px;
-			font-weight: 800;
-			color: var(--second-color);
-			flex-grow: 1;
-		}
+      .fade-in {
+        transform: scale(0.8);
+        animation: fadeIn ease 0.5s forwards;
+        -webkit-animation: fadeIn ease 0.5s forwards;
+      }
 
-		.fade-in {
-			transform: scale(0.8);
-			animation: fadeIn ease 0.5s forwards;
-			-webkit-animation: fadeIn ease 0.5s forwards;
-		}
+      @keyframes fadeIn {
+        0% {
+          opacity: 0;
+          transform: scale(0.8);
+        }
 
-		@keyframes fadeIn {
-			0% {
-				opacity: 0;
-				transform: scale(0.8);
-			}
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
 
-			100% {
-				opacity: 1;
-				transform: scale(1);
-			}
-		}
+      @-webkit-keyframes fadeIn {
+        0% {
+          opacity: 0;
+          -webkit-transform: scale(0.8);
+        }
 
-		@-webkit-keyframes fadeIn {
-			0% {
-				opacity: 0;
-				-webkit-transform: scale(0.8);
-			}
+        100% {
+          opacity: 1;
+          -webkit-transform: scale(1);
+        }
+      }
+    </style>
+  </head>
 
-			100% {
-				opacity: 1;
-				-webkit-transform: scale(1);
-			}
-		}
-	</style>
-</head>
+  <body>
+    <div id="filter-container"></div>
+    <div id="element-container"></div>
+    <script>
+      const DAY = {
+        MAY25: '25th May',
+        MAY26: '26th May',
+        MAY27: '27th May',
+      };
+      const TYPE = {
+        FELLOW: 'Fellow',
+        PUBLIC: 'Public',
+      };
+      const TIME = {
+        MORNING: 'Morning',
+        EVENING: 'Evening',
+        AFTERNOON: 'Afternoon',
+      };
+      const DATA = [
+        {
+          id: 1,
+          day: DAY.MAY25,
+          type: TYPE.FELLOW,
+          time: TIME.MORNING,
+          imageSource: 'https://via.placeholder.com/260x260',
+          imageSourceAlt: 'Image text',
+          title: 'Title 1',
+          text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod',
+        },
+        {
+          id: 2,
+          day: DAY.MAY25,
+          type: TYPE.FELLOW,
+          time: TIME.AFTERNOON,
+          imageSource: 'https://via.placeholder.com/260x260',
+          imageSourceAlt: 'Image text',
+          title: 'Title 2',
+          text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod',
+        },
+        {
+          id: 3,
+          day: DAY.MAY25,
+          type: TYPE.FELLOW,
+          time: TIME.EVENING,
+          imageSource: 'https://via.placeholder.com/260x260',
+          imageSourceAlt: 'Image text',
+          title: 'Title 3',
+          text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod',
+        },
+        {
+          id: 4,
+          day: DAY.MAY26,
+          type: TYPE.FELLOW,
+          time: TIME.MORNING,
+          imageSource: 'https://via.placeholder.com/260x260',
+          imageSourceAlt: 'Image text',
+          title: 'Title 4',
+          text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod',
+        },
+        {
+          id: 5,
+          day: DAY.MAY26,
+          type: TYPE.PUBLIC,
+          time: TIME.MORNING,
+          imageSource: 'https://via.placeholder.com/260x260',
+          imageSourceAlt: 'Image text',
+          title: 'Title 5',
+          text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod',
+        },
+        {
+          id: 6,
+          day: DAY.MAY26,
+          type: TYPE.PUBLIC,
+          time: TIME.AFTERNOON,
+          imageSource: 'https://via.placeholder.com/260x260',
+          imageSourceAlt: 'Image text',
+          title: 'Title 6',
+          text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod',
+        },
+        {
+          id: 7,
+          day: DAY.MAY27,
+          type: TYPE.PUBLIC,
+          time: TIME.MORNING,
+          imageSource: 'https://via.placeholder.com/260x260',
+          imageSourceAlt: 'Image text',
+          title: 'Title 7',
+          text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod',
+        },
+        {
+          id: 8,
+          day: DAY.MAY27,
+          type: TYPE.PUBLIC,
+          time: TIME.EVENING,
+          imageSource: 'https://via.placeholder.com/260x260',
+          imageSourceAlt: 'Image text',
+          title: 'Title 8',
+          text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod',
+        },
+      ];
+      const FILTERS = [
+        {
+          id: 1,
+          titleId: 'titleId-1',
+          title: 'Day',
+          titleOption: 'Any Day',
+          filterProperty: 'day',
+          dataMapping: agendaElement => agendaElement.day,
+        },
+        {
+          id: 2,
+          titleId: 'titleId-2',
+          title: 'Type',
+          titleOption: 'Any Type',
+          filterProperty: 'type',
+          dataMapping: agendaElement => agendaElement.type,
+        },
+        {
+          id: 3,
+          titleId: 'titleId-3',
+          title: 'Time',
+          titleOption: 'Any Time',
+          filterProperty: 'time',
+          dataMapping: agendaElement => agendaElement.time,
+        },
+      ];
+      const DATA_PROPERTIES = [
+        'id',
+        'imageSource',
+        'imageSourceAlt',
+        'text',
+        'title',
+        ...FILTERS.map(filter => filter.filterProperty),
+      ];
+      const ELEMENT_EFFECT = 'fade-in';
 
-<body>
-	<div id='filter-container'>
-	</div>
-	<div id='element-container'>
-	</div>
-	<script>
-		const DAY = {
-			MAY25: '25th May',
-			MAY26: '26th May',
-			MAY27: '27th May',
-		};
-		const TYPE = {
-			FELLOW: 'Fellow',
-			PUBLIC: 'Public',
-		};
-		const TIME = {
-			MORNING: 'Morning',
-			EVENING: 'Evening',
-			AFTERNOON: 'Afternoon',
-		};
-		const DATA = [
-			{
-				id: 1,
-				day: DAY.MAY25,
-				type: TYPE.FELLOW,
-				time: TIME.MORNING,
-				imageSource: 'https://via.placeholder.com/260x260',
-				imageSourceAlt: 'Image text',
-				title: "Title 1",
-				text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod'
-			},
-			{
-				id: 2,
-				day: DAY.MAY25,
-				type: TYPE.FELLOW,
-				time: TIME.AFTERNOON,
-				imageSource: 'https://via.placeholder.com/260x260',
-				imageSourceAlt: 'Image text',
-				title: "Title 2",
-				text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod'
-			},
-			{
-				id: 3,
-				day: DAY.MAY25,
-				type: TYPE.FELLOW,
-				time: TIME.EVENING,
-				imageSource: 'https://via.placeholder.com/260x260',
-				imageSourceAlt: 'Image text',
-				title: "Title 3",
-				text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod'
-			},
-			{
-				id: 4,
-				day: DAY.MAY26,
-				type: TYPE.FELLOW,
-				time: TIME.MORNING,
-				imageSource: 'https://via.placeholder.com/260x260',
-				imageSourceAlt: 'Image text',
-				title: "Title 4",
-				text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod'
-			},
-			{
-				id: 5,
-				day: DAY.MAY26,
-				type: TYPE.PUBLIC,
-				time: TIME.MORNING,
-				imageSource: 'https://via.placeholder.com/260x260',
-				imageSourceAlt: 'Image text',
-				title: "Title 5",
-				text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod'
-			},
-			{
-				id: 6,
-				day: DAY.MAY26,
-				type: TYPE.PUBLIC,
-				time: TIME.AFTERNOON,
-				imageSource: 'https://via.placeholder.com/260x260',
-				imageSourceAlt: 'Image text',
-				title: "Title 6",
-				text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod'
-			},
-			{
-				id: 7,
-				day: DAY.MAY27,
-				type: TYPE.PUBLIC,
-				time: TIME.MORNING,
-				imageSource: 'https://via.placeholder.com/260x260',
-				imageSourceAlt: 'Image text',
-				title: "Title 7",
-				text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod'
-			},
-			{
-				id: 8,
-				day: DAY.MAY27,
-				type: TYPE.PUBLIC,
-				time: TIME.EVENING,
-				imageSource: 'https://via.placeholder.com/260x260',
-				imageSourceAlt: 'Image text',
-				title: "Title 8",
-				text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod'
-			},
-		];
-		const FILTERS = [
-			{
-				id: 1,
-				titleId: 'titleId-1',
-				title: 'Day',
-				titleOption: 'Any Day',
-				filterProperty: 'day',
-				dataMapping: agendaElement => agendaElement.day
-			},
-			{
-				id: 2,
-				titleId: 'titleId-2',
-				title: 'Type',
-				titleOption: 'Any Type',
-				filterProperty: 'type',
-				dataMapping: agendaElement => agendaElement.type
-			},
-			{
-				id: 3,
-				titleId: 'titleId-3',
-				title: 'Time',
-				titleOption: 'Any Time',
-				filterProperty: 'time',
-				dataMapping: agendaElement => agendaElement.time
-			}
-		];
-		const DATA_PROPERTIES = ['id', 'imageSource', 'imageSourceAlt', 'text', 'title', ...FILTERS.map(filter => filter.filterProperty)];
-		const ELEMENT_EFFECT = 'fade-in';
+      displayFilters(DATA, FILTERS);
+      displayElements(DATA);
 
-		displayFilters(DATA, FILTERS);
-		displayElements(DATA);
+      /**
+       * Displays the specified filters in the filter container element for the given data.
+       *
+       * @param {Array} data - The data to filter
+       * @param {Array} filters - The filters to display
+       */
+      function displayFilters(data, filters) {
+        if (!dataValid(data)) {
+          return;
+        }
 
-		/**
-		 * Displays the specified filters in the filter container element for the given data.
-		 *
-		 * @param {Array} data - The data to filter
-		 * @param {Array} filters - The filters to display
-		 */
-		function displayFilters(data, filters) {
-			if (!dataValid(data)) {
-				return;
-			}
+        const filterContainer = document.querySelector('#filter-container');
+        const ul = document.createElement('ul');
+        filters.forEach(filter => {
+          addFilterWithOptions(ul, data, filter);
+        });
+        filterContainer.appendChild(ul);
+      }
 
-			const filterContainer = document.querySelector('#filter-container');
-			const ul = document.createElement('ul')
-			filters.forEach(filter => {
-				addFilterWithOptions(ul, data, filter);
-			});
-			filterContainer.appendChild(ul);
-		}
+      /**
+       * Adds a filter to a given parent unordered list element, including its title and options.
+       *
+       * @param {HTMLElement} parentUl - The unordered list element to add the filter to
+       * @param {Array} data - The data to filter
+       * @param {Object} filter - The filter to add
+       */
+      function addFilterWithOptions(parentUl, data, filter) {
+        const li = document.createElement('li');
+        const a = document.createElement('a');
 
-		/**
-		 * Adds a filter to a given parent unordered list element, including its title and options.
-		 *
-		 * @param {HTMLElement} parentUl - The unordered list element to add the filter to
-		 * @param {Array} data - The data to filter
-		 * @param {Object} filter - The filter to add
-		 */
-		function addFilterWithOptions(parentUl, data, filter) {
-			const li = document.createElement('li');
-			const a = document.createElement('a');
+        a.innerHTML = filter.title;
+        a.id = filter.titleId;
 
-			a.innerHTML = filter.title;
-			a.id = filter.titleId;
+        const ul = createFilterOptions(data, filter);
 
-			const ul = createFilterOptions(data, filter);
+        li.appendChild(a);
+        li.appendChild(ul);
+        parentUl.appendChild(li);
+      }
 
-			li.appendChild(a);
-			li.appendChild(ul);
-			parentUl.appendChild(li);
-		}
+      /**
+       * Creates a list of filter options for a given filter.
+       *
+       * @param {Array} data - The data to filter
+       * @param {Object} filter - The filter to create options for
+       * @returns {HTMLElement} The HTML element containing the filter options
+       */
+      function createFilterOptions(data, filter) {
+        const ul = document.createElement('ul');
 
-		/**
-		 * Creates a list of filter options for a given filter.
-		 *
-		 * @param {Array} data - The data to filter
-		 * @param {Object} filter - The filter to create options for
-		 * @returns {HTMLElement} The HTML element containing the filter options
-		 */
-		function createFilterOptions(data, filter) {
-			const ul = document.createElement('ul');
+        const filterOptions = findDistinct(data.map(filter.dataMapping));
+        filterOptions.unshift(filter.titleOption);
+        filterOptions.forEach(filterOptionElement => {
+          const li = document.createElement('li');
+          li.innerHTML = `<a onclick="clickFilterOption('${filter.titleId}', '${filterOptionElement}')">${filterOptionElement}</a>`;
+          ul.appendChild(li);
+        });
 
-			const filterOptions = findDistinct(data.map(filter.dataMapping));
-			filterOptions.unshift(filter.titleOption);
-			filterOptions.forEach(filterOptionElement => {
-				const li = document.createElement('li');
-				li.innerHTML = `<a onclick="clickFilterOption('${filter.titleId}', '${filterOptionElement}')">${filterOptionElement}</a>`;
-				ul.appendChild(li);
-			});
+        return ul;
+      }
 
-			return ul;
-		}
+      /**
+       * Clicks a filter option and updates the filter title and displayed elements accordingly.
+       *
+       * @param {string} titleId - The id of the element containing the filter title
+       * @param {string} value - The new value for the filter title
+       */
+      function clickFilterOption(titleId, value) {
+        updateFilterTitle(titleId, value);
+        analyzeFilterConditions();
+      }
 
-		/**
-		 * Clicks a filter option and updates the filter title and displayed elements accordingly.
-		 *
-		 * @param {string} titleId - The id of the element containing the filter title
-		 * @param {string} value - The new value for the filter title
-		 */
-		function clickFilterOption(titleId, value) {
-			updateFilterTitle(titleId, value);
-			analyzeFilterConditions();
-		}
+      /**
+       * Updates the title of a filter in the DOM.
+       *
+       * @param {string} titleId - The id of the element containing the filter title
+       * @param {string} value - The new value for the filter title
+       */
+      function updateFilterTitle(titleId, value) {
+        if (isEmpty(titleId)) {
+          console.warn('titleId should not be empty');
+          return;
+        }
+        if (isEmpty(value)) {
+          console.warn('value should not be empty');
+          return;
+        }
 
-		/**
-		 * Updates the title of a filter in the DOM.
-		 *
-		 * @param {string} titleId - The id of the element containing the filter title
-		 * @param {string} value - The new value for the filter title
-		 */
-		function updateFilterTitle(titleId, value) {
-			if (isEmpty(titleId)) {
-				console.warn('titleId should not be empty');
-				return;
-			}
-			if (isEmpty(value)) {
-				console.warn('value should not be empty');
-				return;
-			}
+        const title = document.getElementById(titleId);
+        if (title && title.innerHTML !== value) {
+          title.innerHTML = value;
+        }
+      }
 
-			const title = document.getElementById(titleId);
-			if (title && title.innerHTML !== value) {
-				title.innerHTML = value;
-			}
-		}
+      /**
+       * Analyzes the current filter conditions and displays the corresponding elements.
+       */
+      function analyzeFilterConditions() {
+        const filterTitles = getFilterTitles();
+        const filteredElements = getFilteredElements(filterTitles);
+        displayElements(filteredElements);
+      }
 
-		/**
-		 * Analyzes the current filter conditions and displays the corresponding elements.
-		 */
-		function analyzeFilterConditions() {
-			const filterTitles = getFilterTitles();
-			const filteredElements = getFilteredElements(filterTitles);
-			displayElements(filteredElements);
-		}
+      /**
+       * Retrieves the current filter titles from the DOM.
+       *
+       * @returns {Object} - An object containing the filter property names and their corresponding titles
+       */
+      function getFilterTitles() {
+        const titles = {};
 
-		/**
-		 * Retrieves the current filter titles from the DOM.
-		 *
-		 * @returns {Object} - An object containing the filter property names and their corresponding titles
-		 */
-		function getFilterTitles() {
-			const titles = {};
+        FILTERS.forEach(filter => {
+          const titleElement = document.getElementById(filter.titleId);
 
-			FILTERS.forEach(filter => {
-				const titleElement = document.getElementById(filter.titleId);
+          if (titleElement) {
+            titles[filter.filterProperty] = titleElement.innerHTML;
+          }
+          if (!titleElement || !titleElement.innerHTML) {
+            console.warn('At least one title cannot be queried within the DOM or is empty');
+          }
+        });
 
-				if (titleElement) {
-					titles[filter.filterProperty] = titleElement.innerHTML;
-				}
-				if (!titleElement || !titleElement.innerHTML) {
-					console.warn('At least one title cannot be queried within the DOM or is empty');
-				}
-			});
+        return titles;
+      }
 
-			return titles;
-		}
+      /**
+       * Filters an array of data based on the values of specified properties.
+       *
+       * @param {Array} titles - An array containing objects with property names and their corresponding values to filter the data
+       * @returns {Array} - An array of filtered data based on the values specified in the titles array
+       */
+      function getFilteredElements(titles) {
+        let current = [...DATA];
 
-		/**
-		 * Filters an array of data based on the values of specified properties.
-		 *
-		 * @param {Array} titles - An array containing objects with property names and their corresponding values to filter the data
-		 * @returns {Array} - An array of filtered data based on the values specified in the titles array
-		 */
-		function getFilteredElements(titles) {
-			let current = [...DATA];
+        FILTERS.forEach(filter => {
+          if (
+            !isEmpty(titles[filter.filterProperty]) &&
+            titles[filter.filterProperty] != filter.title &&
+            titles[filter.filterProperty] != filter.titleOption
+          ) {
+            current = current.filter(element => element[filter.filterProperty] === titles[filter.filterProperty]);
+          }
+        });
 
-			FILTERS.forEach(filter => {
-				if (!isEmpty(titles[filter.filterProperty]) && titles[filter.filterProperty] != filter.title && titles[filter.filterProperty] != filter.titleOption) {
-					current = current.filter(element => element[filter.filterProperty] === titles[filter.filterProperty]);
-				}
-			});
+        return current;
+      }
 
-			return current;
-		}
+      /**
+       * Displays a list of data elements on the webpage.
+       *
+       * @param {Array} data - An array of data elements to be displayed
+       */
+      function displayElements(data) {
+        if (!dataValid(data)) {
+          return;
+        }
 
-		/**
-		 * Displays a list of data elements on the webpage.
-		 *
-		 * @param {Array} data - An array of data elements to be displayed
-		 */
-		function displayElements(data) {
-			if (!dataValid(data)) {
-				return;
-			}
+        const elementContainer = document.getElementById('element-container');
+        elementContainer.innerHTML = '';
+        elementContainer.appendChild(createEmptyNonDisplayableElement());
+        data.forEach(dataElement => {
+          const div = document.createElement('div');
+          div.className = `element ${ELEMENT_EFFECT}`;
+          div.innerHTML = createImageContainer(dataElement) + createDescriptionContainer(dataElement);
+          elementContainer.appendChild(div);
+        });
+        elementContainer.appendChild(createEmptyNonDisplayableElement());
+      }
 
-			const elementContainer = document.getElementById('element-container');
-			elementContainer.innerHTML = '';
-			elementContainer.appendChild(createEmptyNonDisplayableElement());
-			data.forEach(dataElement => {
-				const div = document.createElement('div');
-				div.className = `element ${ELEMENT_EFFECT}`;
-				div.innerHTML = createImageContainer(dataElement) + createDescriptionContainer(dataElement);
-				elementContainer.appendChild(div);
-			});
-			elementContainer.appendChild(createEmptyNonDisplayableElement());
-		}
+      /**
+       * Creates an HTML string for an image container element based on a data element.
+       *
+       * @param {object} dataElement - The data element to use for creating the image container
+       * @returns {string} - The HTML string for the newly created image container
+       */
+      function createImageContainer(dataElement) {
+        return `<div class='image-container'><img src='${dataElement.imageSource}' alt='${dataElement.imageSourceAlt}'></div>`;
+      }
 
-		/**
-		 * Creates an HTML string for an image container element based on a data element.
-		 *
-		 * @param {object} dataElement - The data element to use for creating the image container
-		 * @returns {string} - The HTML string for the newly created image container
-		 */
-		function createImageContainer(dataElement) {
-			return `<div class='image-container'><img src='${dataElement.imageSource}' alt='${dataElement.imageSourceAlt}'></div>`;
-		}
+      /**
+       * Creates an HTML string for a description container element based on a data element.
+       *
+       * @param {object} dataElement - The data element to use for creating the description container
+       * @returns {string} - The HTML string for the newly created description container
+       */
+      function createDescriptionContainer(dataElement) {
+        const title = `<div class="title">${dataElement.title}</div>`;
+        const date = `<div class="date">${dataElement.time}, ${dataElement.day}</div>`;
+        const description = `<div class="description">${dataElement.text}</div>`;
+        return `<div class='description-container'>${title}${date}${description}</div>`;
+      }
 
-		/**
-		 * Creates an HTML string for a description container element based on a data element.
-		 *
-		 * @param {object} dataElement - The data element to use for creating the description container
-		 * @returns {string} - The HTML string for the newly created description container
-		 */
-		function createDescriptionContainer(dataElement) {
-			const title = `<div class="title">${dataElement.title}</div>`;
-			const date = `<div class="date">${dataElement.time}, ${dataElement.day}</div>`;
-			const description = `<div class="description">${dataElement.text}</div>`;
-			return `<div class='description-container'>${title}${date}${description}</div>`;
-		}
+      /**
+       * Creates an empty div element with the class 'element' and style 'display: none'.
+       *
+       * ATTENTION
+       * This is only used as a workaround in Squarespace because the first element
+       * has surprisingly 'margin-top: 0;' and the last element has 'margin-bottom: 0;'
+       * within css style sheet.
+       *
+       * @returns {HTMLElement} - The newly created div element
+       */
+      function createEmptyNonDisplayableElement() {
+        const div = document.createElement('div');
+        div.className = 'element';
+        div.style.display = 'none';
+        return div;
+      }
 
-		/**
-		 * Creates an empty div element with the class 'element' and style 'display: none'.
-		 *
-		 * ATTENTION
-		 * This is only used as a workaround in Squarespace because the first element
-		 * has surprisingly 'margin-top: 0;' and the last element has 'margin-bottom: 0;'
-		 * within css style sheet.
-		 * 
-		 * @returns {HTMLElement} - The newly created div element
-		 */
-		function createEmptyNonDisplayableElement() {
-			const div = document.createElement('div');
-			div.className = 'element';
-			div.style.display = 'none';
-			return div;
-		}
+      /**
+       * Validates that an array of data objects contains the required properties with non-null, non-empty values.
+       *
+       * @param {Array} data - The data to be validated
+       * @returns {boolean} - True if the data is valid, otherwise false
+       */
+      function dataValid(data) {
+        if (data === null) {
+          console.warn('Data should not be null');
+          return false;
+        }
 
-		/**
-		 * Validates that an array of data objects contains the required properties with non-null, non-empty values.
-		 *
-		 * @param {Array} data - The data to be validated
-		 * @returns {boolean} - True if the data is valid, otherwise false
-		 */
-		function dataValid(data) {
-			if (data === null) {
-				console.warn('Data should not be null');
-				return false;
-			}
+        let valid = true;
+        data.forEach((dataElement, index) => {
+          if (dataElement === null) {
+            console.warn('Data should not contain null elements at index ${index}');
+            valid = false;
+            return;
+          }
+          DATA_PROPERTIES.forEach(property => {
+            if (!Object.hasOwn(dataElement, property)) {
+              console.warn(`Could not find property ${property} in data at index ${index}.`);
+              valid = false;
+            }
+            const value = dataElement[property];
+            if (value === null || value === '') {
+              console.warn(`Property ${property} should not be null or empty in data element at index ${index}.`);
+              valid = false;
+            }
+          });
+        });
 
-			let valid = true;
-			data.forEach((dataElement, index) => {
-				if (dataElement === null) {
-					console.warn('Data should not contain null elements at index ${index}');
-					valid = false
-					return;
-				}
-				DATA_PROPERTIES.forEach(property => {
-					if (!Object.hasOwn(dataElement, property)) {
-						console.warn(`Could not find property ${property} in data at index ${index}.`);
-						valid = false
-					}
-					const value = dataElement[property];
-					if (value === null || value === '') {
-						console.warn(`Property ${property} should not be null or empty in data element at index ${index}.`);
-						valid = false
-					}
-				});
-			});
+        return valid;
+      }
 
-			return valid;
-		}
+      /**
+       * Finds and returns an array containing only the distinct elements of the input array.
+       *
+       * @param {Array} arr - The input array
+       * @returns {Array} - A new array containing only the distinct elements of the input array
+       */
+      function findDistinct(arr) {
+        return [...new Set(arr)];
+      }
 
-		/**
-		 * Finds and returns an array containing only the distinct elements of the input array.
-		 *
-		 * @param {Array} arr - The input array
-		 * @returns {Array} - A new array containing only the distinct elements of the input array
-		 */
-		function findDistinct(arr) {
-			return [...new Set(arr)];
-		}
-
-		/**
-		 * Determines whether a given value is null or an empty string.
-		 *
-		 * @param {any} value - The value to check
-		 * @returns {boolean} - True if the value is null or an empty string; otherwise, false
-		 */
-		function isEmpty(value) {
-			return value === null || value === '';
-		}
-	</script>
-</body>
-
+      /**
+       * Determines whether a given value is null or an empty string.
+       *
+       * @param {any} value - The value to check
+       * @returns {boolean} - True if the value is null or an empty string; otherwise, false
+       */
+      function isEmpty(value) {
+        return value === null || value === '';
+      }
+    </script>
+  </body>
 </html>
